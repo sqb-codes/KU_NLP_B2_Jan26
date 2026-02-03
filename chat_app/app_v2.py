@@ -1,14 +1,10 @@
-# pip install requests speechrecognition pyttsx3
-# Install pyaudio:
-# mac:
-# - brew install portaudio
-# - pip install pyaudio
-# Windows:
-
+import speech_recognition as sr
+import pyttsx3
 
 from datetime import datetime
 import webbrowser
 import requests
+from ddtrace.bootstrap.sitecustomize import source
 
 # Corpus
 greet_messages = ["hi", "hello", "hey", "hi there", "hey there"]
@@ -16,10 +12,26 @@ date_msgs = ["what's the date","date","tell me date","today's date"]
 time_msgs = ["what's the time","time","tell me time","current time"]
 news_intent = ["tell me news", "news", "headlines"]
 
-# if msg == "hi" or msg == "hello" or msg == "hey there" or msg == "hey":
-#     print("Hello how are you ?")
-# else:
-#     print("I can't understand")
+engine = pyttsx3.init()
+engine.setProperty("rate", 170)
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    rec = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = rec.listen(source)
+    try:
+        query = rec.recognize_google(audio)
+        print("Your Query :",query)
+        return query.lower()
+    except BaseException as ex:
+        print("Can't catch that...")
+        # print("Exception :",ex)
+
 
 def get_location():
     response = requests.get("http://ip-api.com/json/")
@@ -42,7 +54,8 @@ def get_news():
 chat = True
 
 while chat:
-    msg = input("Enter your message: ").lower()
+    # msg = input("Enter your message: ").lower()
+    msg = listen()
 
     if msg in greet_messages:
         print("Hello how are you ?")
