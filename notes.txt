@@ -143,4 +143,56 @@ Embedding -> Window Context -> Need Memory
 = RNN - Recurrent Neural Network
 
 
+Why RNN ?
+Ex- I did not like this movie
 
+["I","did","not","like","this","movie"]
+- treated independently
+
+Core Problem is:
+Language is Sequential + Context dependent
+
+RNN introduces the memory of previous words
+-- Instead of processing whole sentence at once, RNN process one word at a time:
+x1 -> x2 -> x3 -> x4
+At each step:
+- It remembers past information
+
+Step by Step RNN Algo:
+Step-1: Initialize Memory:
+memory = empty
+
+memory is called hidden state
+
+Step-2: Read first word:
+Input: "I"
+RNN reads "I"
+Updates the memory
+memory = understanding of I
+
+Step-3: Read next word:
+Input: "did"
+RNN reads "did"
+Updates the memory
+previous memory = "I"
+current word = "did"
+
+Then it combines both:
+memory = "I did"
+
+Continue processing till last word...
+"like" - it is positive
+But memory also contains "not"
+
+memory = negative sentiment
+
+Algorithm:
+1. Start with empty memory
+2. For each word in the sentence:
+- read the word
+- combine it with previous word
+- Update memory
+3. After last word:
+- Use memory to make prediction
+
+new memory = old memory + new word
