@@ -250,4 +250,20 @@ For a specific step t, the gradient depends on current state ht, which in turn d
 If the weights are small, multiplying them repeatedly causes the gradient to shrink exponentially toward zero (Vanishing Gradient). The model stops learning long-term dependencies
 
 
+=================================
+
+LSTM - Long Short Term Memory
+Example: I was watching a movie yesterday with my friends and after a long discussion we realized that movie was bad
+
+Important word = bad
+But it appears very late so RNN may forget it
+
+RNN Problem:
+Memory gets weaker as sequence grows
+
+What LSTM does:
+- What to remember
+- What to forget
+- What to output
+
 
