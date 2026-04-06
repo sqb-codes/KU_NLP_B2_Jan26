@@ -266,4 +266,41 @@ What LSTM does:
 - What to forget
 - What to output
 
+LSTM are designed in such a way that avoids long-term dependencies.
+Remembering information for long period of time is practically their default behaviour
 
+Three gates in LSTM:
+1. Forget gate - decides what to remove from memory
+2. Input gate - decides what new information to store
+3. Output gae - decides what to use for prediction
+
+Example: I went to the movie yesterday...
+Word "yesterday" may not matter later -> forget
+
+Example: the movie was amazing
+Store amazing -> important sentiment
+
+Step by Step LSTM Algorithm
+1. Init memory
+memory = empty
+
+2. Read first word
+"I" -> Not important -> Weak memory
+
+3. Read next word - "did"
+Memory updated slightly
+
+4. Read next word - "not"
+Important word - input gate -> store "not"
+
+5. Read next word - "like"
+Now: "like" -> positive
+but: "not" -> negative
+LSTM combine: final meaning = negative
+
+
+LSTM architecture breakdown
+Step-1:
+- decide what information we're going to throw away from cell state
+- decision is being made by sigmoid layer known as "forget gate layer"
+- it looks at ht-1 
